@@ -8,7 +8,16 @@ public class Vertex {
 	private int data;
 	private boolean visited;
 	private List<Vertex> neighbourList;
+	String path="";
 	
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public Vertex(int data) {
 		this.data = data;
 		this.neighbourList = new ArrayList<>();
