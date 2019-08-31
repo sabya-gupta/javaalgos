@@ -20,6 +20,17 @@ public class SolveMaze {
 			System.out.println();
 		}
 	}
+	void printPath() {
+		for (int i = 0; i < numrows; i++) {
+			for (int j = 0; j < numcols; j++) {
+				if(visited[i][j]==1)
+					System.out.print(" * ");
+				else
+					System.out.print(" - ");
+			}
+			System.out.println();
+		}
+	}
 	void readFile() {
 		try {
 			System.out.println("reading....");
@@ -42,21 +53,26 @@ public class SolveMaze {
 	}
 	
 	void solveTheMazeWithDFS(int row, int col) throws Exception{
-		String str = "Analysing [%d][%d]";
+		String str = "Analysing [%d][%d] ";
 		System.out.println(String.format(str, row,col));
 		if(row <=0 || row >= numrows) {
+			System.out.println("reached bottom or top end");
 			return;
 		}
 		if(col <=0 || col >= numcols) {
+			System.out.println("reached right or left end");
 			return;
 		}
 		if(visited[row][col]==1) {
+			System.out.println("Already visited");
 			return;
 		}
 		if(map[row][col]==1) {
+			System.out.println("Hit the wall!!");
 			return;
 		}
 		if(map[row][col] == 3) {
+			visited[row][col]=1;
 			throw new Exception("found escape!!!");
 		}
 		visited[row][col]=1;
@@ -69,7 +85,8 @@ public class SolveMaze {
 	public SolveMaze() {
 		filename = "src/search/MazeSolver/Mazefile";
 		numcols=numrows=5;
-		map = visited = new int[numrows][numcols];
+		map = new int[numrows][numcols];
+		visited = new int[numrows][numcols];
 	}
 
 	public static void main(String[] args) {
@@ -79,8 +96,8 @@ public class SolveMaze {
 		try {
 			sm.solveTheMazeWithDFS(sm.startPosRow, sm.startPosCol);
 		} catch (Exception e) {
-			e.printStackTrace();
 			e.getMessage();
 		}
+		sm.printPath();
 	}
 }
